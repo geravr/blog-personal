@@ -1,0 +1,27 @@
+@import 'variables';
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'PT Sans', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $title-color;
+}
+
+p {
+  font-size: 1.1rem;
+  color: $text-color;
+  line-height: 2rem;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}

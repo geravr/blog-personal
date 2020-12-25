@@ -1,0 +1,9 @@
+@import 'mixins';
+.btn {
+  @include default-border-radius;
+}
+.card {
+  @include default-border-radius;
+  @include default-shadow;
+  border: 1px solid transparent;
+}

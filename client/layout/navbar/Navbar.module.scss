@@ -1,0 +1,54 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.navbarContainer {
+  background-color: white;
+  @include default-shadow();
+
+  // Medium devices (tablets, 768px and up)
+  @media (min-width: 768px) {
+    box-shadow: none;
+  }
+
+  .navbar {
+
+    .navbarLink {
+      position: relative;
+      font-weight: 500;
+      color: $text-color;
+
+      &:hover,
+      &:focus {
+        color: $text-color;
+
+      }
+
+      &::after {
+        background-color: $secondary;
+        content: "";
+        width: 0;
+        height: 2px;
+        left: 0;
+        bottom: 6px;
+        position: absolute;
+      }
+
+      &:hover::after {
+        width: 100%;
+      }
+    }
+
+    .active {
+      &::after {
+        background-color: $secondary;
+        content: "";
+        width: 0;
+        height: 2px;
+        left: 0;
+        bottom: 6px;
+        position: absolute;
+        width: 100%;
+      }
+    }
+  }
+}
