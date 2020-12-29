@@ -10,4 +10,4 @@ COPY [".", "/client/"]
 
 EXPOSE 3000
 
-CMD bash -c "npm run build && npm run develop"
+CMD bash -c "npm run build && npm run start"
