@@ -10,4 +10,4 @@ COPY [".", "/api/"]
 
 EXPOSE 1337
 
-CMD bash -c "npm run build && npm run start"
+CMD bash -c "npm run start"
