@@ -1,76 +1,37 @@
 import { useEffect, useState } from "react";
-import axiosClient from "../config/axios";
 
-// Ant Design
-import { message } from "antd";
-
-const useFetch = (url, method, content) => {
+const useFetch = (endpoint, initialParams = {}) => {
   /*************** States ***************/
-  const [response, setResponse] = useState(null);
-  const [data, setData] = useState(null);
-  const [count, setCount] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [error, setError] = useState(null);
+  const [params, updateParams] = useState(initialParams)
+  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  
+  /*************** Variables ***************/
+  const baseURL = process.env.NEXT_STATIC_HOSTNAME_API;
 
+  // const queryString = Object.keys(params)
+  // .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(params[key]))
+  // .join('&')
+  
   /*************** Functions ***************/
-  const onChangePagination = (page, pageSize) => {
-    if (page) {
-      setCurrentPage(page);
-    }
-    if (pageSize) {
-      setPageSize(pageSize);
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(`${baseURL}${endpoint}`);
+      setData(await response.json());
+      setHasError(false);
+      setErrorMessage("");
+    } catch (error) {
+      setHasError(true);
+      setErrorMessage(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  /*************** Lifecycle ***************/
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        if (method === "get") {
-          const response = await axiosClient.get(`${url}?page=${currentPage}&limit=${pageSize}`)
-          setData(response.data.results);
-          setCount(response.data.count);
-        }
-        if (method === "post" && content) {
-          const response = await axiosClient.post(url, content)
-          setResponse(response);
-        }
-        if (method === "put" && content) {
-          const response = await axiosClient.put(url, content)
-          setResponse(response);
-        }
-        if (method === "patch" && content) {
-          const response = await axiosClient.patch(url, content)
-          setResponse(response);
-        }
-        if (method === "delete") {
-          const response = await axiosClient.delete(url)
-          setResponse(response);
-        }
-      } catch (error) {
-        console.log(typeof error);
-        if (!error.response) {
-          setError('Ocurrió un error durante la solicitud');
-        } else {
-          setError(`Error: ${error.response.status} ${error.response.statusText}`);
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchData();
-  }, [url, currentPage, pageSize]);
-
-  useEffect(() => { 
-    error && (
-      message.error(error)
-    )
-   }, [error])
-
-  return { response, data, count, pageSize, isLoading, onChangePagination };
+  return { fetchData, data, isLoading, hasError, errorMessage, updateParams };
 };
 
 export default useFetch;

@@ -1,7 +1,10 @@
-const path = require('path')
+const path = require("path");
+const nextEnv = require("next-env");
 
-module.exports = {
+const withNextEnv = nextEnv();
+
+module.exports = withNextEnv({
   sassOptions: {
-    includePaths: [path.join(__dirname, 'styles')],
+    includePaths: [path.join(__dirname, "styles")],
   },
-}
+});

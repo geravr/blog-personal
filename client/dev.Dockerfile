@@ -1,4 +1,4 @@
-FROM node:14.15.3-buster-slim
+FROM node:12.16.3-buster
 
 COPY ["package.json", "package-lock.json", "/client/"]
 
@@ -8,4 +8,4 @@ RUN npm install
 
 COPY [".", "/client/"]
 
-EXPOSE 3008
+EXPOSE 3000

@@ -19,12 +19,12 @@ const DefaultCover = () => {
 
   const getImage = () => {
     if (category === "devops") {
-      return "/server.png";
+      return { url: "/devops.png", alt: 'devops' };
     }
-    return "/coding.png";
+    return { url: "/desarrollo.png", alt: 'desarrollo' };
   };
 
-  const imageUrl = getImage();
+  const imageCover = getImage();
 
   return (
     <Container fluid className={style.homeCover}>
@@ -48,9 +48,9 @@ const DefaultCover = () => {
             lg="6"
             className={`d-flex justify-content-center align-items-center ${style.categories}`}
           >
-            <Image
-              src={imageUrl}
-              alt="Picture of the author"
+            <img
+              src={imageCover.url}
+              alt={imageCover.alt}
               width={350}
               height={265}
             />
