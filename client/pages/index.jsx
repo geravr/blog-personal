@@ -20,7 +20,7 @@ export default function Home({ posts }) {
 // This function gets called at build time
 export async function getStaticProps() {
 
-  const res = await fetch(`http://api:1337/posts`);
+  const res = await fetch(`${process.env.NEXT_STATIC_HOSTNAME_API}/posts`);
   const posts = await res.json();
 
   // Pass post data to the page via props

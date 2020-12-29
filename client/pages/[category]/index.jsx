@@ -21,7 +21,7 @@ const index = ({ posts }) => {
 // This function gets called at build time
 export async function getStaticPaths() {
   // Call an external API endpoint to get categories
-  const res = await fetch("http://api:1337/categories");
+  const res = await fetch(`${process.env.NEXT_STATIC_HOSTNAME_API}/categories`);
   const categories = await res.json();
 
   // Get the paths we want to pre-render based on posts
@@ -36,7 +36,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
 
   const res = await fetch(
-    `http://api:1337/posts/?category.name=${params.category}`
+    `${process.env.NEXT_STATIC_HOSTNAME_API}/posts/?category.name=${params.category}`
     );
     const posts = await res.json();
 

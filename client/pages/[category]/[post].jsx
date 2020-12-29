@@ -32,7 +32,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   // params contains the post `id`.
   // If the route is like /posts/1, then params.id is 1
-  const res = await fetch(`http://api:1337/posts?slug=${params.post}`);
+  const res = await fetch(`${process.env.NEXT_STATIC_HOSTNAME_API}/posts?slug=${params.post}`);
   const post = await res.json();
 
   // Pass post data to the page via props
