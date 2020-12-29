@@ -1,0 +1,41 @@
+version: "3.5"
+services:
+
+  api:
+    build:
+      context: ./api/
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./api:/api
+      - /api/node_modules
+      - db_data:/api/.tmp/
+    ports:
+      - "1337:1337"
+    networks:
+      - blog_network
+    stdin_open: true
+    command: npm run develop
+    restart: on-failure
+    
+  client:
+    build:
+      context: ./client/
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./client:/client
+      - /client/node_modules
+    ports:
+      - "3008:3000"
+    networks:
+      - blog_network
+    depends_on:
+      - api
+    stdin_open: true
+    command: npm run dev
+    restart: on-failure
+
+networks:
+  blog_network:
+
+volumes:
+  db_data:

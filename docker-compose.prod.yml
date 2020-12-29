@@ -1,0 +1,35 @@
+version: "3.5"
+services:
+
+  api:
+    build:
+      context: ./api/
+      dockerfile: prod.Dockerfile
+    volumes:
+      - ./api:/api
+      - /api/node_modules
+    networks:
+      - blog_network
+      - proxy-manager-net
+    stdin_open: true
+    restart: on-failure
+
+  client:
+    build:
+      context: ./client/
+      dockerfile: prod.Dockerfile
+    volumes:
+      - ./client:/client
+      - /client/node_modules
+    networks:
+      - blog_network
+      - proxy-manager-net
+    depends_on:
+      - api
+    stdin_open: true
+    restart: on-failure
+
+networks:
+  blog_network:
+  proxy-manager-net:
+    external: true
