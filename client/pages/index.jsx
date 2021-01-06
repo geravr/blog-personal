@@ -1,28 +1,32 @@
 // Bootstrap
 import { Row, Col } from "react-bootstrap";
 
+// Utils
+import { getBranding, getHome, getPosts } from "@utils/api";
+
 // Components
+import Layout from "@layout/Layout";
 import CardPostList from "@components/CardPostList/CardPostList";
 
-export default function Home({ posts }) {
+export default function Home({ branding, coverData, posts }) {
   return (
-    <Row>
-      <Col sm="12">
-        <h2 className="h1">Entradas recomendadas!</h2>
-      </Col>
-      <Col sm="12">
-        <CardPostList blogEntries={posts} />
-      </Col>
-    </Row>
+    <Layout branding={branding} coverData={coverData}>
+      <Row>
+        <Col sm="12">
+          <h2>Entradas recomendadas!</h2>
+        </Col>
+        <Col sm="12">
+          <CardPostList blogEntries={posts} />
+        </Col>
+      </Row>
+    </Layout>
   );
 }
 
-// This function gets called at build time
 export async function getStaticProps() {
+  const branding = await getBranding();
+  const coverData = await getHome();
+  const posts = await getPosts();
 
-  const res = await fetch(`${process.env.NEXT_STATIC_HOSTNAME_API}/posts`);
-  const posts = await res.json();
-
-  // Pass post data to the page via props
-  return { props: { posts }, revalidate: 1 };
+  return { props: { branding, coverData, posts }, revalidate: 1 };
 }

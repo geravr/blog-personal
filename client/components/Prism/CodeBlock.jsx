@@ -8,20 +8,20 @@ import style from "./CodeBlock.module.scss";
 class CodeBlock extends PureComponent {
   static propTypes = {
     value: PropTypes.string.isRequired,
-    language: PropTypes.string
+    language: PropTypes.string,
   };
 
   static defaultProps = {
-    language: null
+    language: null,
   };
 
   render() {
     const { language, value } = this.props;
     return (
       <div className={style.code}>
-      <SyntaxHighlighter language={language} style={codeStyle}>
-        {value}
-      </SyntaxHighlighter>
+        <SyntaxHighlighter language={language} style={codeStyle}>
+          {value}
+        </SyntaxHighlighter>
       </div>
     );
   }

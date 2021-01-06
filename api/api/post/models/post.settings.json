@@ -15,10 +15,6 @@
       "type": "string",
       "required": true
     },
-    "owner": {
-      "type": "string",
-      "required": true
-    },
     "excerpt": {
       "type": "text",
       "required": true

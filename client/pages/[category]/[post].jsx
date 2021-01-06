@@ -1,42 +1,40 @@
 // Bootstrap
 import { Col, Row } from "react-bootstrap";
 
+// Utils
+import { getBranding, getPosts, getPost } from "@utils/api";
+
 // Components
+import Layout from "@layout/Layout";
 import SinglePost from "@components/SinglePost/SinglePost";
 
-const Post = ({ post }) => {
-
+const Post = ({ branding, post }) => {
   return (
-    <Row>
-      <Col><SinglePost postData={post[0]} /></Col>
-    </Row>
+    <Layout branding={branding}>
+      <Row>
+        <Col className="px-2 px-md-3">
+          <SinglePost postData={post} />
+        </Col>
+      </Row>
+    </Layout>
   );
 };
 
-// This function gets called at build time
 export async function getStaticPaths() {
-  // Call an external API endpoint to get post an category
-  const res = await fetch("http://api:1337/posts");
-  const posts = await res.json();
+  const posts = await getPosts();
 
   const paths = await posts.map((post) => ({
-    params: { category: post.category.name, post: post.slug },
+    params: { category: post.category.name.toLowerCase(), post: post.slug },
   }));
 
-  // We'll pre-render only these paths at build time.
-  // { fallback: false } means other routes should 404.
   return { paths, fallback: false };
 }
 
-// This also gets called at build time
 export async function getStaticProps({ params }) {
-  // params contains the post `id`.
-  // If the route is like /posts/1, then params.id is 1
-  const res = await fetch(`${process.env.NEXT_STATIC_HOSTNAME_API}/posts?slug=${params.post}`);
-  const post = await res.json();
+  const branding = await getBranding();
+  const post = await getPost(params.post);
 
-  // Pass post data to the page via props
-  return { props: { post }, revalidate: 1, };
+  return { props: { branding, post }, revalidate: 1 };
 }
 
 export default Post;

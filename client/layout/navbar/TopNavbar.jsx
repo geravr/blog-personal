@@ -1,76 +1,55 @@
 import React from "react";
 import Link from "next/link";
 import ActiveLink from "./ActiveLink";
+import Image from "next/image";
 
 // Styles
 import style from "./Navbar.module.scss";
 
-// React Bootstrap
+// Bootstrap
 import { Container, Nav, Navbar } from "react-bootstrap";
 
-// Icons
-import DevIcon from "@components/icons/DevIcon";
-import DevopsIcon from "@components/icons/DevopsIcon";
-
-// Hooks
-import useWindowSize from "@hooks/useWindowSize";
-
-export default function TopNavbar() {
-  const isSmallDevice = useWindowSize() === "sm";
-
+export default function TopNavbar({ logo }) {
   return (
-    <>
-      {isSmallDevice && (
-        <Navbar variant="light" className={style.navbarContainer}>
-          <Container className="d-flex justify-content-center">
-            <Link href="/" passHref>
-              <Navbar.Brand className="d-flex align-items-center">
-                Logo
-              </Navbar.Brand>
-            </Link>
-          </Container>
-        </Navbar>
-      )}
-
-      <Navbar
-        variant="light"
-        className={`${style.navbarContainer} ${
-          isSmallDevice && "fixed-bottom"
-        }`}
-      >
-        <Container className={isSmallDevice && 'd-flex justify-content-center'}>
-          {!isSmallDevice && (
-            <Link href="/" passHref>
-              <Navbar.Brand className="d-flex align-items-center">
-                Logo
-              </Navbar.Brand>
-            </Link>
-          )}
-
-          <Nav className={`${style.navbar}`}>
+    <Navbar variant="light" className={`${style.navbarContainer}`} expand="md">
+      <Container>
+        <Link href="/" passHref>
+          <Navbar.Brand className="d-flex align-items-center">
+            <Image
+              src={logo.url}
+              alt={logo.alternativeText}
+              width={190}
+              height={30}
+            />
+          </Navbar.Brand>
+        </Link>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse
+          id="basic-navbar-nav"
+          className="justify-content-md-end"
+        >
+          <Nav className={`pt-3 pt-md-0 ${style.navbar}`}>
             <ActiveLink
               href="/desarrollo"
               activeClassName={style.active}
               passHref
             >
               <Nav.Link
-                className={`mx-3 d-flex flex-column align-items-center ${style.navbarLink}`}
+                className={`mx-md-2 my-2 my-md-0 d-flex flex-column align-items-center ${style.navbarLink}`}
               >
-                <DevIcon color="primary" />
                 Desarrollo
               </Nav.Link>
             </ActiveLink>
             <ActiveLink href="/devops" activeClassName={style.active} passHref>
               <Nav.Link
-                className={`mx-3 d-flex flex-column align-items-center ${style.navbarLink}`}
+                className={`mx-md-2 my-2 my-md-0 d-flex flex-column align-items-center ${style.navbarLink}`}
               >
-                <DevopsIcon color="primary" />
-                DevOps
+                Devops
               </Nav.Link>
             </ActiveLink>
           </Nav>
-        </Container>
-      </Navbar>
-    </>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }

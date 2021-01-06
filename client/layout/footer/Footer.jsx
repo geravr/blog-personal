@@ -1,16 +1,19 @@
-import React from 'react'
-import { Container } from 'react-bootstrap'
+import React from "react";
+
+// Bootstrap
+import { Container } from "react-bootstrap";
+
+// Styles
+import style from "./Footer.module.scss";
 
 const Footer = () => {
   return (
-    <footer className="mt-4">
+    <footer className={`${style.footer}`}>
       <Container className="d-flex justify-content-center">
-        <div>
-          ©2020 Codealo. Todos los derechos reservados.
-        </div>
+        <div>©2021 Gerardo Villa | Todos los derechos reservados.</div>
       </Container>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

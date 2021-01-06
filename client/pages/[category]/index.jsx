@@ -1,47 +1,49 @@
 // Bootstrap
 import { Row, Col } from "react-bootstrap";
 
+// Utils
+import {
+  getBranding,
+  getCategory,
+  getCategories,
+  getPostsByCategory,
+} from "@utils/api";
+
 // Components
+import Layout from "@layout/Layout";
 import CardPostList from "@components/CardPostList/CardPostList";
 
-const index = ({ posts }) => {
-
+const index = ({ branding, coverData, posts }) => {
   return (
-    <Row>
-      <Col sm="12">
-        <h2 className="h1">Últimas entradas</h2>
-      </Col>
-      <Col sm="12">
-        <CardPostList blogEntries={posts} />
-      </Col>
-    </Row>
+    <Layout branding={branding} coverData={coverData}>
+      <Row>
+        <Col sm="12">
+          <h2>Últimas entradas</h2>
+        </Col>
+        <Col sm="12">
+          <CardPostList blogEntries={posts} />
+        </Col>
+      </Row>
+    </Layout>
   );
 };
 
-// This function gets called at build time
 export async function getStaticPaths() {
-  // Call an external API endpoint to get categories
-  const res = await fetch(`${process.env.NEXT_STATIC_HOSTNAME_API}/categories`);
-  const categories = await res.json();
+  const categories = await getCategories();
 
-  // Get the paths we want to pre-render based on posts
   const paths = categories.map((category) => ({
-    params: { category: category.name },
+    params: { category: category.name.toLowerCase() },
   }));
 
   return { paths, fallback: false };
 }
 
-// This also gets called at build time
 export async function getStaticProps({ params }) {
+  const branding = await getBranding();
+  const coverData = await getCategory(params.category);
+  const posts = await getPostsByCategory(params.category);
 
-  const res = await fetch(
-    `${process.env.NEXT_STATIC_HOSTNAME_API}/posts/?category.name=${params.category}`
-    );
-    const posts = await res.json();
-
-  // Pass post data to the page via props
-  return { props: { posts }, revalidate: 1 };
+  return { props: { branding, coverData, posts }, revalidate: 1 };
 }
 
 export default index;

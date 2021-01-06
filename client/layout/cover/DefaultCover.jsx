@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import Image from "next/image";
 
 // Bootstrap
@@ -7,24 +6,11 @@ import { Container, Row, Col } from "react-bootstrap";
 // Styles
 import style from "./cover.module.scss";
 
-// Utils
-import { toCapitalize } from "@utils/toCapitalize";
+const DefaultCover = ({ coverData }) => {
 
-const DefaultCover = () => {
-  const {
-    query: { category },
-    pathname,
-  } = useRouter();
-  const isCategorySection = pathname === "/[category]";
-
-  const getImage = () => {
-    if (category === "devops") {
-      return { url: "/devops.png", alt: 'devops' };
-    }
-    return { url: "/desarrollo.png", alt: 'desarrollo' };
-  };
-
-  const imageCover = getImage();
+  const imageCover = coverData.imageCover;
+  const sectionDescription = coverData.description;
+  const sectionTitle = coverData.title;
 
   return (
     <Container fluid className={style.homeCover}>
@@ -32,25 +18,20 @@ const DefaultCover = () => {
         <Row className={style.cover}>
           <Col
             lg="6"
-            className={`d-flex flex-column justify-content-end text-white ${style.welcome}`}
+            className={`d-flex flex-column justify-content-center text-white order-1 order-lg-0 ${style.welcome}`}
           >
             <h1>
-              {isCategorySection
-                ? toCapitalize(category)
-                : "Bienvenido a codeando"}
+              {sectionTitle}
             </h1>
-            <p>
-              Un espacio donde aprender y practicar con nuevos retos que te
-              ayudarán a crecer como desarrollador
-            </p>
+            <p>{sectionDescription}</p>
           </Col>
           <Col
             lg="6"
-            className={`d-flex justify-content-center align-items-center ${style.categories}`}
+            className={`d-flex justify-content-center align-items-center order-0 order-lg-1 ${style.categories}`}
           >
-            <img
+            <Image
               src={imageCover.url}
-              alt={imageCover.alt}
+              alt={imageCover.alternativeText}
               width={350}
               height={265}
             />

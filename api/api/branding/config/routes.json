@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/branding",
+      "handler": "branding.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/branding",
+      "handler": "branding.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/branding",
+      "handler": "branding.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

@@ -1,3 +1,17 @@
+@import '../../styles/mixins';
+@import '../../styles/variables';
+
 .main {
-  min-height: 42vh;
+  margin-bottom: 1rem;
+  .scrollUp {
+    width: 45px;
+    height: 45px;
+    padding: .8rem;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.829);
+    @include default-shadow();
+    svg {
+      color: #9b9b9b;
+    }
+  }
 }

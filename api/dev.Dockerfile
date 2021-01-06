@@ -8,6 +8,8 @@ RUN npm install
 
 COPY [".", "/api/"]
 
+# RUN npm run build
+
 EXPOSE 1337
 
 CMD bash -c "npm run develop"

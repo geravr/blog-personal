@@ -1,35 +1,62 @@
 version: "3.5"
 services:
+  db:
+    image: mongo
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    networks:
+      - blog_network
+    volumes:
+      - blog-data:/data/db
 
   api:
     build:
       context: ./api/
       dockerfile: prod.Dockerfile
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      JWT_SECRET: ${JWT_SECRET}
+      DATABASE_CLIENT: ${DATABASE_CLIENT}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
     volumes:
       - ./api:/api
       - /api/node_modules
+      - multimedia:/api/public
     networks:
       - blog_network
       - proxy-manager-net
-    stdin_open: true
-    restart: on-failure
+    depends_on:
+      - db
 
   client:
     build:
       context: ./client/
       dockerfile: prod.Dockerfile
+    restart: on-failure
     volumes:
       - ./client:/client
       - /client/node_modules
+      - multimedia:/client/public
     networks:
       - blog_network
       - proxy-manager-net
     depends_on:
       - api
-    stdin_open: true
-    restart: on-failure
 
 networks:
   blog_network:
   proxy-manager-net:
-    external: true
+   external: true
+
+volumes:
+  blog-data:
+  multimedia:

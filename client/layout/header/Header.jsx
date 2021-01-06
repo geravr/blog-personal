@@ -1,25 +1,15 @@
-import { useRouter } from "next/router";
-
+// Components
 import TopNavbar from "../navbar/TopNavbar";
-import DefaultCover from "../cover/DefaultCover";
-import PostCover from "../cover/PostCover";
 
-const Header = () => {
-  const { pathname } = useRouter();
+// Hooks
+import useWindowSize from "@hooks/useWindowSize";
 
-  const isHomeOrCategory = pathname === "/" || pathname === "/[category]";
-
-  const GetCover = () => {
-    if (isHomeOrCategory) {
-      return <DefaultCover />;
-    }
-    return <PostCover />;
-  };
+const Header = ({ logo }) => {
+  const isSmallDevice = useWindowSize() === "sm";
 
   return (
-    <header>
-      <TopNavbar />
-      <GetCover />
+    <header className={isSmallDevice && "sticky-top"}>
+      <TopNavbar logo={logo} />
     </header>
   );
 };

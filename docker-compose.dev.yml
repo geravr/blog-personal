@@ -1,41 +1,61 @@
 version: "3.5"
 services:
+  db:
+    image: mongo
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    networks:
+      - blog_network
+    volumes:
+      - blog-data:/data/db
 
   api:
     build:
       context: ./api/
       dockerfile: dev.Dockerfile
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_CLIENT: ${DATABASE_CLIENT}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
     volumes:
       - ./api:/api
       - /api/node_modules
-      - db_data:/api/.tmp/
+      - multimedia:/api/public
     ports:
       - "1337:1337"
     networks:
       - blog_network
-    stdin_open: true
-    command: npm run develop
-    restart: on-failure
-    
+    depends_on:
+      - db
+
   client:
     build:
       context: ./client/
       dockerfile: dev.Dockerfile
+    restart: on-failure
     volumes:
       - ./client:/client
       - /client/node_modules
+      - multimedia:/client/public
     ports:
       - "3008:3000"
     networks:
       - blog_network
     depends_on:
       - api
-    stdin_open: true
-    command: npm run dev
-    restart: on-failure
 
 networks:
   blog_network:
 
 volumes:
-  db_data:
+  blog-data:
+  multimedia:

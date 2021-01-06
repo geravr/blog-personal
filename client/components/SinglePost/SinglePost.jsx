@@ -7,25 +7,34 @@ import CodeBlock from "@components/Prism/CodeBlock";
 import style from "./SinglePost.module.scss";
 
 // Icons
-import UserIcon from "@icons/UserIcon";
-import DateIcon from "@icons/DateIcon";
-import ReadingUserIcon from "@icons/ReadingUserIcon";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faStopwatch,
+  faCalendarAlt,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
+
+// Utils
+import calculateReadingTime from "@utils/calculateReadingTime";
 
 const SinglePost = ({ postData }) => {
-  const date_published = postData.published_at.substring(0,10);
+  const date_published = postData.published_at.substring(0, 10);
+  const timeToRead = calculateReadingTime(postData.content);
   return (
     <Card className={style.post}>
       <Card.Body className={style.body}>
         <h1>{postData.title}</h1>
         <ul className={style.widgetList}>
           <li>
-            <UserIcon size="25" color="secondary" /> <p>{postData.owner}</p>
+            <FontAwesomeIcon icon={faUser} size="1x" />{" "}
+            <p>{postData.created_by.firstname}</p>
           </li>
           <li>
-            <DateIcon size="25" color="secondary" /> <p>{date_published}</p>
+            <FontAwesomeIcon icon={faCalendarAlt} size="1x" />{" "}
+            <p>{date_published}</p>
           </li>
           <li>
-            <ReadingUserIcon size="30" color="secondary" /> <p>15 min.</p>
+            <FontAwesomeIcon icon={faStopwatch} size="1x" /> <p>{timeToRead}</p>
           </li>
         </ul>
         <ReactMarkdown

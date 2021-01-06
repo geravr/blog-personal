@@ -1,14 +1,17 @@
 @import 'variables';
 
-$theme-colors: (
-  "primary":    $primary,
-  "secondary":  $secondary,
+$theme-colors: ("primary": $primary,
+  "primary-light": $primary-light,
+  "primary-dark": $primary-dark,
+  "secondary": $secondary,
+  "secondary-light": $secondary-light,
+  "secondary-dark": $secondary-dark,
   // "success":    $success,
   // "info":       $info,
   // "warning":    $warning,
   // "danger":     $danger,
   // "light":      $light,
   // "dark":       $dark
-  );
-  
-  @import "~bootstrap/scss/bootstrap";
+);
+
+@import "~bootstrap/scss/bootstrap";

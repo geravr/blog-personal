@@ -1,26 +1,30 @@
-import React from "react";
 import Head from "next/head";
 
+// Components
 import Header from "./header/Header";
 import Main from "./main/Main";
 import Footer from "./footer/Footer";
 
-const Layout = ({ children }) => {
+// Styles
+import style from "./Layout.module.scss";
+
+const Layout = ({ children, branding, coverData }) => {
   return (
     <>
       <Head>
-        <title>Blog de gera</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>{branding.blogTitle}</title>
+        <link rel="icon" href={branding.favicon.url} />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap"
           rel="stylesheet"
         />
       </Head>
-
-      <Header />
-      <Main>{children}</Main>
-      <Footer />
+      <div className={style.layout}>
+        <Header logo={branding.logo} />
+        <Main coverData={coverData}>{children}</Main>
+        <Footer />
+      </div>
     </>
   );
 };
