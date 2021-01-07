@@ -30,7 +30,7 @@ const DefaultCover = ({ coverData }) => {
             className={`d-flex justify-content-center align-items-center order-0 order-lg-1 ${style.categories}`}
           >
             <Image
-              src={imageCover.url}
+              src={process.env.API_HOST_CONTAINER + imageCover.url}
               alt={imageCover.alternativeText}
               width={350}
               height={265}
