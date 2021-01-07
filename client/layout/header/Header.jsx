@@ -8,7 +8,7 @@ const Header = ({ logo }) => {
   const isSmallDevice = useWindowSize() === "sm";
 
   return (
-    <header className={isSmallDevice && "sticky-top"}>
+    <header className={isSmallDevice ? "sticky-top" : undefined}>
       <TopNavbar logo={logo} />
     </header>
   );
