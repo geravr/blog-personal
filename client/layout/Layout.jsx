@@ -13,7 +13,7 @@ const Layout = ({ children, branding, coverData }) => {
     <>
       <Head>
         <title>{branding.blogTitle}</title>
-        <link rel="icon" href={branding.favicon.url} />
+        <link rel="icon" href={process.env.API_HOST_PUBLIC + branding.favicon.url} />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap"
