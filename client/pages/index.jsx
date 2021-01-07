@@ -1,3 +1,5 @@
+import dynamic from "next/dynamic";
+
 // Bootstrap
 import { Row, Col } from "react-bootstrap";
 
@@ -6,7 +8,9 @@ import { getBranding, getHome, getPosts } from "@utils/api";
 
 // Components
 import Layout from "@layout/Layout";
-import CardPostList from "@components/CardPostList/CardPostList";
+const CardPostList = dynamic(() =>
+  import("@components/CardPostList/CardPostList")
+);
 
 export default function Home({ branding, coverData, posts }) {
   return (

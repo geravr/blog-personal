@@ -1,3 +1,5 @@
+import dynamic from "next/dynamic";
+
 // Bootstrap
 import { Row, Col } from "react-bootstrap";
 
@@ -11,7 +13,9 @@ import {
 
 // Components
 import Layout from "@layout/Layout";
-import CardPostList from "@components/CardPostList/CardPostList";
+const CardPostList = dynamic(() =>
+  import("@components/CardPostList/CardPostList")
+);
 
 const index = ({ branding, coverData, posts }) => {
   return (
@@ -35,7 +39,7 @@ export async function getStaticPaths() {
     params: { category: category.name.toLowerCase() },
   }));
 
-  return { paths, fallback: 'blocking' };
+  return { paths, fallback: "blocking" };
 }
 
 export async function getStaticProps({ params }) {
