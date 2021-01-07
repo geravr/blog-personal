@@ -23,7 +23,8 @@
       code {
         padding: 2px 5px;
         border-radius: 5px;
-        color: $primary;
+        font-weight: 500;
+        color: #0ca7aa;
         &::before {
           content: "`";
         }
