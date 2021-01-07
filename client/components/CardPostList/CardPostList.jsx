@@ -9,7 +9,7 @@ const CardPostList = ({ blogEntries }) => {
     <Row>
       {blogEntries.length === 0 ? (
         <Col>
-          <p>No existen entradas.</p>
+          <p>Por ahora no existe contenido en esta categoría, vuelve pronto, estamos preparando contenido nuevo.</p>
         </Col>
       ) : (
         blogEntries.map((post) => <CardPost post={post} key={post.id} />)
