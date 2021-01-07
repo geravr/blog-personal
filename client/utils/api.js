@@ -2,7 +2,7 @@ export function getApiURL(path) {
   if (path.startsWith("http")) {
     return path;
   }
-  return `${process.env.NEXT_STATIC_HOSTNAME_API}${path}`;
+  return `${process.env.API_HOST_CONTAINER}${path}`;
 }
 
 // Helper to make GET requests to api
