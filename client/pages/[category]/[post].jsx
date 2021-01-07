@@ -27,7 +27,7 @@ export async function getStaticPaths() {
     params: { category: post.category.name.toLowerCase(), post: post.slug },
   }));
 
-  return { paths, fallback: true };
+  return { paths, fallback: 'blocking' };
 }
 
 export async function getStaticProps({ params }) {
