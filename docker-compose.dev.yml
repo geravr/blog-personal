@@ -29,7 +29,7 @@ services:
     volumes:
       - ./api:/api
       - /api/node_modules
-      - multimedia:/api/public
+      - static-files:/api/public
     ports:
       - "1337:1337"
     networks:
@@ -45,7 +45,6 @@ services:
     volumes:
       - ./client:/client
       - /client/node_modules
-      - multimedia:/client/public
     ports:
       - "3008:3000"
     networks:
@@ -58,4 +57,4 @@ networks:
 
 volumes:
   blog-data:
-  multimedia:
+  static-files:

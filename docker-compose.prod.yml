@@ -45,7 +45,6 @@ services:
     volumes:
       - ./client:/client
       - /client/node_modules
-      - multimedia:/client/public
     networks:
       - blog_network
       - proxy-manager-net
