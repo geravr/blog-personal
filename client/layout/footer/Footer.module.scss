@@ -1,3 +1,21 @@
+@import '../../styles/media-breakpoint';
+
 .footer {
   margin-top: auto;
+  padding: 10px 0;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @include media-breakpoint-up(md) {
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
 }
