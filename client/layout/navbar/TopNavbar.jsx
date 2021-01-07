@@ -16,10 +16,11 @@ export default function TopNavbar({ logo }) {
         <Link href="/" passHref>
           <Navbar.Brand className="d-flex align-items-center">
             <Image
-              src={logo.url}
+              src={process.env.API_HOST_CONTAINER + logo.url}
               alt={logo.alternativeText}
               width={190}
-              height={30}
+              height={36}
+              quality={100}
             />
           </Navbar.Brand>
         </Link>
