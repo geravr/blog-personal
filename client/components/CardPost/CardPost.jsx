@@ -7,7 +7,7 @@ import { Col, Card, Badge } from "react-bootstrap";
 import style from "./CardPost.module.scss";
 
 const CardPost = ({ post }) => {
-  const postUrl = `${post.category.name.toLowerCase()}/${post.slug}`;
+  const postUrl = `/${post.category.name.toLowerCase()}/${post.slug}`;
   return (
     <Col
       sm="auto"
