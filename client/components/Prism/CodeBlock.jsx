@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import codeStyle from "react-syntax-highlighter/dist/cjs/styles/prism/coy";
+import codeStyle from "react-syntax-highlighter/dist/cjs/styles/prism/material-oceanic";
 
 import style from "./CodeBlock.module.scss";
 

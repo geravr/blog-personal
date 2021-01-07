@@ -5,6 +5,7 @@
 .post {
   max-width: 50rem;
   margin: -8rem auto 0 auto;
+  background-color: $default-background;
 
   .body {
     padding: 20px 15px 30px 15px;
@@ -22,8 +23,13 @@
       code {
         padding: 2px 5px;
         border-radius: 5px;
-        background-color: #eeeeee;
-        color: $secondary;
+        color: $primary;
+        &::before {
+          content: "`";
+        }
+        &::after {
+          content: "`";
+        }
       }
     }
 

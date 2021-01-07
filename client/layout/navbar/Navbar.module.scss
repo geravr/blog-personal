@@ -3,7 +3,7 @@
 @import '../../styles/media-breakpoint';
 
 .navbarContainer {
-  background-color: white;
+  background-color: $default-background;
   @include default-shadow();
   .navbar {
 
