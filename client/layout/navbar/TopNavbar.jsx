@@ -39,7 +39,7 @@ export default function TopNavbar({ logo, categories }) {
                 <Nav.Link
                   className={`mx-md-2 my-2 my-md-0 d-flex flex-column align-items-center ${style.navbarLink}`}
                 >
-                  {category.title}
+                  {category.name}
                 </Nav.Link>
               </ActiveLink>
             ))}
