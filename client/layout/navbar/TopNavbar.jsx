@@ -8,7 +8,7 @@ import style from "./Navbar.module.scss";
 // Bootstrap
 import { Container, Nav, Navbar } from "react-bootstrap";
 
-export default function TopNavbar({ logo }) {
+export default function TopNavbar({ logo, categories }) {
   return (
     <Navbar variant="light" className={`${style.navbarContainer}`} expand="md">
       <Container>
@@ -29,24 +29,20 @@ export default function TopNavbar({ logo }) {
           className="justify-content-md-end"
         >
           <Nav className={`pt-3 pt-md-0 ${style.navbar}`}>
-            <ActiveLink
-              href="/desarrollo"
-              activeClassName={style.active}
-              passHref
-            >
-              <Nav.Link
-                className={`mx-md-2 my-2 my-md-0 d-flex flex-column align-items-center ${style.navbarLink}`}
+            {categories.map((category) => (
+              <ActiveLink
+                key={category.id}
+                href={`/${category.slug}`}
+                activeClassName={style.active}
+                passHref
               >
-                Desarrollo
-              </Nav.Link>
-            </ActiveLink>
-            <ActiveLink href="/devops" activeClassName={style.active} passHref>
-              <Nav.Link
-                className={`mx-md-2 my-2 my-md-0 d-flex flex-column align-items-center ${style.navbarLink}`}
-              >
-                Devops
-              </Nav.Link>
-            </ActiveLink>
+                <Nav.Link
+                  className={`mx-md-2 my-2 my-md-0 d-flex flex-column align-items-center ${style.navbarLink}`}
+                >
+                  {category.title}
+                </Nav.Link>
+              </ActiveLink>
+            ))}
           </Nav>
         </Navbar.Collapse>
       </Container>

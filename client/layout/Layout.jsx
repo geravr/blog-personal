@@ -8,7 +8,7 @@ import Footer from "./footer/Footer";
 // Styles
 import style from "./Layout.module.scss";
 
-const Layout = ({ children, branding, coverData }) => {
+const Layout = ({ children, branding, coverData, categories }) => {
   return (
     <>
       <Head>
@@ -21,7 +21,7 @@ const Layout = ({ children, branding, coverData }) => {
         />
       </Head>
       <div className={style.layout}>
-        <Header logo={branding.logo} />
+        <Header logo={branding.logo} categories={categories} />
         <Main coverData={coverData}>{children}</Main>
         <Footer />
       </div>

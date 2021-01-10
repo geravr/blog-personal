@@ -17,9 +17,9 @@ const CardPostList = dynamic(() =>
   import("@components/CardPostList/CardPostList")
 );
 
-const index = ({ branding, coverData, posts }) => {
+const index = ({ branding, coverData, categories, posts }) => {
   return (
-    <Layout branding={branding} coverData={coverData}>
+    <Layout branding={branding} coverData={coverData} categories={categories}>
       <Row>
         <Col sm="12">
           <h2>Últimas entradas</h2>
@@ -45,9 +45,10 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const branding = await getBranding();
   const coverData = await getCategory(params.category);
+  const categories = await getCategories();
   const posts = await getPostsByCategory(params.category);
 
-  return { props: { branding, coverData, posts }, revalidate: 1 };
+  return { props: { branding, coverData, categories, posts }, revalidate: 1 };
 }
 
 export default index;
